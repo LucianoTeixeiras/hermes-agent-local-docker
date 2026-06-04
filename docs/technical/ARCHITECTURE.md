@@ -212,6 +212,7 @@ Exemplos de modelos:
 ```bash
 docker compose -f docker-compose.yml -f docker-compose.volume.yml exec hermes hermes config set model openrouter/google/gemini-2.5-pro
 docker compose -f docker-compose.yml -f docker-compose.volume.yml exec hermes hermes config set model openai/gpt-5
+docker compose -f docker-compose.yml -f docker-compose.volume.yml exec hermes hermes config set model nvidia/nvidia/nemotron-3-super-120b-a12b
 ```
 
 Veja tambem [Trocar modelo via Docker](../operations/CHANGE_MODEL.md).
@@ -242,6 +243,8 @@ HF_BASE_URL=https://router.huggingface.co/v1
 AWS_REGION=
 AWS_PROFILE=
 AZURE_FOUNDRY_API_KEY=
+NVIDIA_API_KEY=
+NVIDIA_BASE_URL=https://integrate.api.nvidia.com/v1
 ```
 
 O `.env.example` ja preenche os `*_BASE_URL` com valores padrao quando a documentacao do Hermes ou do provider publica um endpoint estavel. Altere esses valores apenas quando usar proxy corporativo, gateway local, regioes especificas, self-hosting ou endpoints compativeis como LiteLLM, VLLM, SGLang, LM Studio, LocalAI ou Open WebUI.

@@ -58,6 +58,47 @@ docker compose -f docker-compose.yml -f docker-compose.volume.yml exec hermes he
 docker compose -f docker-compose.yml -f docker-compose.volume.yml exec hermes hermes config set model openai/gpt-5
 ```
 
+### NVIDIA Nemotron free endpoint
+
+A NVIDIA oferece endpoints gratuitos para prototipagem no NIM API Catalog. Para o Nemotron 3 Super:
+
+```env
+NVIDIA_API_KEY=sua_chave_nvidia
+NVIDIA_BASE_URL=https://integrate.api.nvidia.com/v1
+```
+
+Modelo:
+
+```text
+nvidia/nemotron-3-super-120b-a12b
+```
+
+No Hermes, usando o formato `<provider/model>`, o comando fica:
+
+```bash
+docker compose -f docker-compose.yml -f docker-compose.volume.yml exec hermes hermes config set model nvidia/nvidia/nemotron-3-super-120b-a12b
+```
+
+Se preferir via `config.yaml`:
+
+```yaml
+model:
+  provider: nvidia
+  default: nvidia/nemotron-3-super-120b-a12b
+  base_url: ${NVIDIA_BASE_URL}
+  api_mode: chat_completions
+```
+
+Tambem ha um alias em `examples/config.yaml.example`:
+
+```yaml
+model_aliases:
+  nemotron-free:
+    provider: nvidia
+    model: nvidia/nemotron-3-super-120b-a12b
+    base_url: ${NVIDIA_BASE_URL}
+```
+
 ## 4. Reiniciar o gateway
 
 WSL/Linux com volume:
