@@ -10,6 +10,9 @@ services:
     restart: unless-stopped
     command: gateway run
     init: true
+    env_file:
+      - path: .env
+        required: false
     ports:
       - "${API_SERVER_BIND:-127.0.0.1}:${API_SERVER_PORT:-8642}:8642"
       - "${DASHBOARD_BIND:-127.0.0.1}:${DASHBOARD_PORT:-9119}:9119"

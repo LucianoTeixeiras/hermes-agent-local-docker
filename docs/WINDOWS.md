@@ -23,6 +23,18 @@ Gere uma chave para `API_SERVER_KEY`:
 
 Edite o arquivo `.env` e substitua `API_SERVER_KEY`.
 
+Opcionalmente, configure no mesmo `.env` as chaves dos providers que serao usadas pelo Hermes, por exemplo:
+
+```env
+OPENROUTER_API_KEY=
+ANTHROPIC_API_KEY=
+GOOGLE_API_KEY=
+OPENAI_API_KEY=
+OPENAI_BASE_URL=
+```
+
+Para configuracao permanente pelo proprio Hermes, use o setup interativo ou `hermes config set`, que grava segredos em `hermes-data/.env`.
+
 Execute o setup do Hermes:
 
 ```powershell

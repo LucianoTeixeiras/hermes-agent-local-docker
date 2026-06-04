@@ -36,7 +36,7 @@ O container usa `/opt/data` como fonte unica de estado, conforme a documentacao 
 
 - `Dockerfile`: imagem derivada minima baseada em `nousresearch/hermes-agent`.
 - `docker-compose.yml`: servico persistente com gateway, limites de recursos, logging rotacionado e bind local.
-- `.env.example`: template de variaveis para Compose.
+- `.env.example`: template de variaveis para Compose e chaves opcionais de providers.
 - `scripts/windows/*.ps1`: operacao no Windows via PowerShell.
 - `scripts/linux/*.sh`: operacao no Linux, WSL e Ubuntu via Bash.
 - `scripts/*.ps1`: atalhos legados para os scripts Windows.
@@ -68,7 +68,9 @@ chmod +x scripts/linux/*.sh
 ./scripts/linux/bootstrap.sh
 ```
 
-O setup cria os arquivos internos em `hermes-data/`. Chaves de provedores, tokens de bots e segredos do Hermes ficam no arquivo `hermes-data/.env`, nao no `.env` do Compose.
+O setup cria os arquivos internos em `hermes-data/`. Pela documentacao oficial, chaves de provedores, tokens de bots e segredos do Hermes pertencem ao arquivo `hermes-data/.env`.
+
+Este projeto tambem aceita chaves de providers no `.env` da raiz para facilitar Docker Compose. O Compose carrega esse arquivo com `env_file`, entao variaveis como `OPENROUTER_API_KEY`, `ANTHROPIC_API_KEY`, `GOOGLE_API_KEY` ou `OPENAI_BASE_URL` ficam disponiveis dentro do container. Para ambientes persistentes, prefira registrar esses valores pelo setup do Hermes ou por `hermes config set`, que salva segredos no local nativo do Hermes.
 
 ## Execucao
 
@@ -159,9 +161,27 @@ docker compose exec hermes hermes config set model <provider/model>
 
 A regra recomendada e:
 
-- segredos em `hermes-data/.env`;
+- segredos persistentes do Hermes em `hermes-data/.env`;
+- segredos temporarios ou de bootstrap tambem podem entrar no `.env` da raiz, pois o Compose repassa o arquivo ao container;
 - configuracoes nao secretas em `hermes-data/config.yaml`;
 - valores passados por variavel de ambiente no Compose sobrescrevem o `.env` interno quando usados diretamente.
+
+Exemplos de variaveis de provider aceitas:
+
+```env
+OPENROUTER_API_KEY=
+ANTHROPIC_API_KEY=
+GOOGLE_API_KEY=
+GEMINI_API_KEY=
+OPENAI_API_KEY=
+OPENAI_BASE_URL=
+DEEPSEEK_API_KEY=
+XAI_API_KEY=
+HF_TOKEN=
+AWS_REGION=
+AWS_PROFILE=
+AZURE_FOUNDRY_API_KEY=
+```
 
 ## Seguranca
 
