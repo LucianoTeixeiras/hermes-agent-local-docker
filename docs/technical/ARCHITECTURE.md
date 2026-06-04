@@ -199,6 +199,23 @@ docker compose exec hermes hermes config edit
 docker compose exec hermes hermes config set model <provider/model>
 ```
 
+Em WSL/Linux usando volume Docker:
+
+```bash
+docker compose -f docker-compose.yml -f docker-compose.volume.yml exec hermes hermes config
+docker compose -f docker-compose.yml -f docker-compose.volume.yml exec hermes hermes config edit
+docker compose -f docker-compose.yml -f docker-compose.volume.yml exec hermes hermes config set model openrouter/anthropic/claude-sonnet-4.6
+```
+
+Exemplos de modelos:
+
+```bash
+docker compose -f docker-compose.yml -f docker-compose.volume.yml exec hermes hermes config set model openrouter/google/gemini-2.5-pro
+docker compose -f docker-compose.yml -f docker-compose.volume.yml exec hermes hermes config set model openai/gpt-5
+```
+
+Veja tambem [Trocar modelo via Docker](../operations/CHANGE_MODEL.md).
+
 A regra recomendada e:
 
 - segredos persistentes do Hermes em `hermes-data/.env`;

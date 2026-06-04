@@ -125,6 +125,7 @@ O `.env.example` inclui variaveis opcionais para providers de modelos. Preencha 
 - [Guia Windows](docs/operations/WINDOWS.md)
 - [Guia Linux, WSL e Ubuntu](docs/operations/LINUX_WSL.md)
 - [Primeiro contato via Docker](docs/operations/FIRST_CONTACT.md)
+- [Trocar modelo via Docker](docs/operations/CHANGE_MODEL.md)
 - [Guia Telegram](docs/integrations/TELEGRAM.md)
 - [Guia Hermes Desktop](docs/integrations/DESKTOP.md)
 - [Troubleshooting](docs/operations/TROUBLESHOOTING.md)
