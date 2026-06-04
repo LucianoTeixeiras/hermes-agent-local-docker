@@ -324,3 +324,15 @@ Solucao:
 
 3. Deixe `Session token` em branco quando Basic Auth estiver configurado.
 4. Clique em `Test remote`.
+
+Se a UI continuar travada, configure a URL remota por variavel de ambiente e reabra o Hermes Desktop:
+
+```powershell
+setx HERMES_DESKTOP_REMOTE_URL "http://127.0.0.1:9119"
+```
+
+Para remover o override depois:
+
+```powershell
+Remove-ItemProperty -Path "HKCU:\Environment" -Name HERMES_DESKTOP_REMOTE_URL
+```

@@ -194,7 +194,40 @@ Verifique:
    ./scripts/linux/start.sh --volume
    ```
 
-## 7. Seguranca
+6. Feche e abra o Hermes Desktop novamente. Algumas builds mantem estado de formulario em memoria ate reiniciar a janela.
+
+## 7. Fallback: configurar Remote URL por variavel de ambiente
+
+A documentacao oficial tambem permite definir o backend remoto via variavel `HERMES_DESKTOP_REMOTE_URL` antes de abrir o Hermes Desktop.
+
+Windows PowerShell, para a sessao atual:
+
+```powershell
+$env:HERMES_DESKTOP_REMOTE_URL="http://127.0.0.1:9119"
+```
+
+Para persistir no usuario Windows:
+
+```powershell
+setx HERMES_DESKTOP_REMOTE_URL "http://127.0.0.1:9119"
+```
+
+Depois feche e abra o Hermes Desktop.
+
+Se o Desktop detectar Basic Auth, ele deve pedir login com:
+
+```text
+Username: admin
+Password: valor de HERMES_DASHBOARD_BASIC_AUTH_PASSWORD
+```
+
+Para remover o override persistente depois:
+
+```powershell
+Remove-ItemProperty -Path "HKCU:\Environment" -Name HERMES_DESKTOP_REMOTE_URL
+```
+
+## 8. Seguranca
 
 - Nao exponha `9119` na internet.
 - Mantenha `DASHBOARD_BIND=127.0.0.1` para uso local.
