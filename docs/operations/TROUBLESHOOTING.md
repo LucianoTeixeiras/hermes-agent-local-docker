@@ -147,6 +147,39 @@ O arquivo `docker-compose.volume.yml` declara `hermes-agent-data` como volume ex
 git pull
 ```
 
+## Docker volume name includes invalid characters like `\r`
+
+Sintoma:
+
+```text
+"hermes-agent-data\r" includes invalid characters for a local volume name
+```
+
+Causa:
+
+O `.env` foi editado no Windows e salvo com CRLF. O caractere invisivel `\r` pode ser lido por scripts Bash no WSL se nao for tratado.
+
+Solucao:
+
+Atualize o repositorio. Os scripts atuais removem `\r`, espacos e aspas ao ler `HERMES_DATA_VOLUME`:
+
+```bash
+git pull
+./scripts/linux/start.sh --volume
+```
+
+Alternativa manual:
+
+```bash
+sed -i 's/\r$//' .env
+```
+
+Depois rode novamente:
+
+```bash
+./scripts/linux/start.sh --volume
+```
+
 ## `s6-overlay-suexec: fatal: can only run as pid 1`
 
 Sintoma:

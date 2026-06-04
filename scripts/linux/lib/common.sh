@@ -12,10 +12,24 @@ hermes_env_value() {
     awk -F= -v key="${name}" '
       $0 !~ /^[[:space:]]*#/ && $1 == key {
         sub(/^[^=]*=/, "")
+        gsub(/\r/, "")
+        gsub(/^[[:space:]]+|[[:space:]]+$/, "")
+        gsub(/^"|"$/, "")
+        gsub(/^'\''|'\''$/, "")
         print
         exit
       }
     ' "${env_path}"
+  fi
+}
+
+hermes_validate_volume_name() {
+  local volume="$1"
+
+  if [[ ! "${volume}" =~ ^[a-zA-Z0-9][a-zA-Z0-9_.-]*$ ]]; then
+    echo "Invalid Docker volume name: ${volume@Q}" >&2
+    echo "Use only letters, numbers, underscore, dot and dash. Example: hermes-agent-data" >&2
+    exit 1
   fi
 }
 
@@ -55,7 +69,10 @@ hermes_data_volume_name() {
   local env_volume
 
   env_volume="$(hermes_env_value HERMES_DATA_VOLUME "${env_path}")"
-  echo "${HERMES_DATA_VOLUME:-${env_volume:-hermes-agent-data}}"
+  local volume="${HERMES_DATA_VOLUME:-${env_volume:-hermes-agent-data}}"
+  volume="${volume//$'\r'/}"
+  hermes_validate_volume_name "${volume}"
+  echo "${volume}"
 }
 
 hermes_print_data_mode_notice() {
