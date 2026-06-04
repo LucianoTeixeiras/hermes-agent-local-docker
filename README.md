@@ -18,8 +18,8 @@ O projeto empacota a abordagem recomendada pela documentacao oficial do Hermes: 
 
 Escolha o guia do seu ambiente:
 
-- [Windows](docs/WINDOWS.md)
-- [Linux, WSL e Ubuntu](docs/LINUX_WSL.md)
+- [Windows](docs/operations/WINDOWS.md)
+- [Linux, WSL e Ubuntu](docs/operations/LINUX_WSL.md)
 
 Use uma pasta local para execucao Docker, por exemplo `D:\00-agents2ai-agents\hermes-agent-local-docker` no Windows ou `~/projects/hermes-agent-local-docker` no WSL/Linux. O OneDrive e mais adequado como espelho/backup do codigo do que como local de runtime do container.
 
@@ -119,12 +119,13 @@ O `.env.example` inclui variaveis opcionais para providers de modelos. Preencha 
 
 ## Documentacao
 
-- [Documentacao tecnica](docs/TECNICA.md)
-- [Documentacao executiva](docs/EXECUTIVA.md)
-- [Guia Windows](docs/WINDOWS.md)
-- [Guia Linux, WSL e Ubuntu](docs/LINUX_WSL.md)
-- [Guia Telegram](docs/TELEGRAM.md)
-- [Troubleshooting](docs/TROUBLESHOOTING.md)
+- [Indice da documentacao](docs/README.md)
+- [Documentacao tecnica](docs/technical/ARCHITECTURE.md)
+- [Documentacao executiva](docs/executive/OVERVIEW.md)
+- [Guia Windows](docs/operations/WINDOWS.md)
+- [Guia Linux, WSL e Ubuntu](docs/operations/LINUX_WSL.md)
+- [Guia Telegram](docs/integrations/TELEGRAM.md)
+- [Troubleshooting](docs/operations/TROUBLESHOOTING.md)
 
 ## Exemplos
 

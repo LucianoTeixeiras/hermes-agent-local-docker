@@ -162,7 +162,7 @@ GOOGLE_CHAT_ALLOWED_USERS=
 
 Em producao, mantenha `GATEWAY_ALLOW_ALL_USERS=false`.
 
-Para configurar o Hermes como bot do Telegram, use o [Guia Telegram](TELEGRAM.md). O fluxo recomendado e criar o bot com `@BotFather`, preencher `TELEGRAM_BOT_TOKEN` e `TELEGRAM_ALLOWED_USERS` no `.env`, e reiniciar o gateway.
+Para configurar o Hermes como bot do Telegram, use o [Guia Telegram](../integrations/TELEGRAM.md). O fluxo recomendado e criar o bot com `@BotFather`, preencher `TELEGRAM_BOT_TOKEN` e `TELEGRAM_ALLOWED_USERS` no `.env`, e reiniciar o gateway.
 
 ## Dashboard
 
@@ -229,7 +229,7 @@ O `.env.example` ja preenche os `*_BASE_URL` com valores padrao quando a documen
 
 ## Exemplo de config.yaml
 
-O arquivo [examples/config.yaml.example](../examples/config.yaml.example) traz uma base segura para `hermes-data/config.yaml`, incluindo:
+O arquivo [examples/config.yaml.example](../../examples/config.yaml.example) traz uma base segura para `hermes-data/config.yaml`, incluindo:
 
 - `model`: provider e modelo principal.
 - `model_aliases`: aliases curtos para troca via `/model`.
