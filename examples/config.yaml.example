@@ -1,0 +1,90 @@
+# Hermes Agent config.yaml example
+#
+# Copy this file to hermes-data/config.yaml after running setup, then adjust
+# providers and models for your environment.
+#
+# Provider API keys should stay in .env or hermes-data/.env, not in this file.
+# Hermes supports ${VAR_NAME} substitution for values that must come from env.
+
+model:
+  # Main model used by new Hermes sessions.
+  # Common provider ids include: openrouter, anthropic, google, openai,
+  # deepseek, x-ai, huggingface, bedrock, azure-foundry, novita, nvidia.
+  provider: openrouter
+  default: anthropic/claude-sonnet-4.6
+  base_url: ""
+  api_mode: chat_completions
+
+model_aliases:
+  fast:
+    provider: openrouter
+    model: google/gemini-2.5-flash
+  reasoning:
+    provider: openrouter
+    model: anthropic/claude-opus-4.7
+  local:
+    provider: openai
+    model: local-model
+    base_url: ${OPENAI_BASE_URL}
+
+fallback_providers:
+  - provider: openrouter
+    model: google/gemini-2.5-pro
+  - provider: openrouter
+    model: openai/gpt-5
+
+auxiliary:
+  # auto means the task inherits the main model.
+  compression:
+    provider: auto
+    model: ""
+    base_url: ""
+
+  # Vision can use a cheaper/faster multimodal model.
+  vision:
+    provider: openrouter
+    model: google/gemini-2.5-flash
+    base_url: ""
+    api_key: ""
+    timeout: 120
+    extra_body: {}
+    download_timeout: 30
+
+  web_extract:
+    provider: openrouter
+    model: google/gemini-2.5-flash
+    base_url: ""
+    api_key: ""
+    timeout: 120
+    extra_body: {}
+
+delegation:
+  # Subagents inherit the main model when provider/model are empty.
+  provider: ""
+  model: ""
+  base_url: ""
+  api_key: ""
+  api_mode: ""
+  max_iterations: 50
+
+providers:
+  openrouter:
+    request_timeout_seconds: 180
+    models:
+      anthropic/claude-sonnet-4.6:
+        timeout_seconds: 240
+
+openrouter:
+  # Optional OpenRouter caching controls can also be set through env vars:
+  # HERMES_OPENROUTER_CACHE and HERMES_OPENROUTER_CACHE_TTL.
+  response_cache: true
+  response_cache_ttl: 3600
+
+terminal:
+  # Keep command execution local to the Hermes container unless you explicitly
+  # configure another backend.
+  backend: local
+
+checkpoints:
+  enabled: false
+  max_snapshots: 20

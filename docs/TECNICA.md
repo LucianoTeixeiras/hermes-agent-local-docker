@@ -183,6 +183,34 @@ AWS_PROFILE=
 AZURE_FOUNDRY_API_KEY=
 ```
 
+## Exemplo de config.yaml
+
+O arquivo [examples/config.yaml.example](../examples/config.yaml.example) traz uma base segura para `hermes-data/config.yaml`, incluindo:
+
+- `model`: provider e modelo principal.
+- `model_aliases`: aliases curtos para troca via `/model`.
+- `fallback_providers`: modelos alternativos em caso de falha.
+- `auxiliary`: modelos para tarefas auxiliares como vision, web extract e compression.
+- `delegation`: configuracao de subagentes.
+- `providers`: timeouts globais e por modelo.
+- substituicao `${VAR_NAME}` para valores vindos do `.env`.
+
+Fluxo recomendado:
+
+Windows:
+
+```powershell
+Copy-Item .\examples\config.yaml.example .\hermes-data\config.yaml
+```
+
+Linux, WSL ou Ubuntu:
+
+```bash
+cp examples/config.yaml.example hermes-data/config.yaml
+```
+
+Depois ajuste `provider`, `default` e os modelos auxiliares conforme suas chaves disponiveis. Reinicie o gateway para novas sessoes carregarem a configuracao.
+
 ## Seguranca
 
 Controles aplicados neste projeto:

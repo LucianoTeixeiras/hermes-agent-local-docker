@@ -60,6 +60,14 @@ Com Nous Portal:
 ./scripts/linux/bootstrap.sh --portal
 ```
 
+Opcionalmente, use o exemplo de configuracao:
+
+```bash
+cp examples/config.yaml.example hermes-data/config.yaml
+```
+
+Depois ajuste `provider`, `default`, aliases e modelos auxiliares conforme seus providers.
+
 ## Operacao
 
 Subir:

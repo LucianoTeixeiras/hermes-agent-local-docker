@@ -122,6 +122,10 @@ O `.env.example` inclui variaveis opcionais para providers de modelos. Preencha 
 - [Guia Windows](docs/WINDOWS.md)
 - [Guia Linux, WSL e Ubuntu](docs/LINUX_WSL.md)
 
+## Exemplos
+
+- [config.yaml.example](examples/config.yaml.example): exemplo de configuracao do Hermes com main model, aliases, fallback, modelos auxiliares e substituicao por variaveis do `.env`.
+
 ## Licenca
 
 Distribuido sob a licenca Apache-2.0. Veja [LICENSE](LICENSE).

@@ -47,6 +47,14 @@ Com Nous Portal:
 .\scripts\windows\bootstrap.ps1 -Portal
 ```
 
+Opcionalmente, use o exemplo de configuracao:
+
+```powershell
+Copy-Item .\examples\config.yaml.example .\hermes-data\config.yaml
+```
+
+Depois ajuste `provider`, `default`, aliases e modelos auxiliares conforme seus providers.
+
 ## Operacao
 
 Subir:
