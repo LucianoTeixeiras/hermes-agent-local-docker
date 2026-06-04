@@ -178,3 +178,47 @@ git pull
 docker rm -f hermes-agent-local
 .\scripts\windows\start.ps1
 ```
+
+## `No user allowlists configured`
+
+Sintoma:
+
+```text
+WARNING gateway.run: No user allowlists configured. All unauthorized users will be denied.
+```
+
+Causa:
+
+`API_SERVER_KEY` protege a API HTTP em `8642`, mas o gateway tambem tem uma camada separada de autorizacao para usuarios de plataformas como Telegram, Discord, Slack, Google Chat, WhatsApp, Signal e Matrix.
+
+Para teste local, configure no `.env`:
+
+```env
+GATEWAY_ALLOW_ALL_USERS=true
+```
+
+Depois recrie o container:
+
+```bash
+./scripts/linux/stop.sh --volume
+./scripts/linux/start.sh --volume
+```
+
+Para uso real, prefira manter:
+
+```env
+GATEWAY_ALLOW_ALL_USERS=false
+```
+
+E configure allowlists:
+
+```env
+GATEWAY_ALLOWED_USERS=
+TELEGRAM_ALLOWED_USERS=
+DISCORD_ALLOWED_USERS=
+SLACK_ALLOWED_USERS=
+GOOGLE_CHAT_ALLOWED_USERS=
+WHATSAPP_ALLOWED_USERS=
+SIGNAL_ALLOWED_USERS=
+MATRIX_ALLOWED_USERS=
+```

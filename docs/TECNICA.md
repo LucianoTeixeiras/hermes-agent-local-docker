@@ -144,6 +144,24 @@ API_SERVER_KEY: ${API_SERVER_KEY}
 
 Mesmo com host interno `0.0.0.0`, a porta publicada fica presa ao host `127.0.0.1`, evitando exposicao direta na rede. Para expor fora da maquina local, altere `API_SERVER_BIND` conscientemente e coloque autenticao/reverse proxy na frente.
 
+`API_SERVER_KEY` protege a API HTTP/OpenAI-compatible. Ela nao substitui as allowlists do gateway para plataformas de mensageria. Se o log mostrar `No user allowlists configured`, configure:
+
+```env
+GATEWAY_ALLOW_ALL_USERS=true
+```
+
+apenas para teste local, ou prefira allowlists explicitas:
+
+```env
+GATEWAY_ALLOWED_USERS=
+TELEGRAM_ALLOWED_USERS=
+DISCORD_ALLOWED_USERS=
+SLACK_ALLOWED_USERS=
+GOOGLE_CHAT_ALLOWED_USERS=
+```
+
+Em producao, mantenha `GATEWAY_ALLOW_ALL_USERS=false`.
+
 ## Dashboard
 
 O dashboard fica desabilitado por padrao:

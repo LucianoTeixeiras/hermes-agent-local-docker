@@ -49,6 +49,14 @@ OPENAI_BASE_URL=https://api.openai.com/v1
 Para configuracao permanente pelo proprio Hermes, use o setup interativo ou `hermes config set`, que grava segredos em `hermes-data/.env`.
 Os campos `*_BASE_URL` do `.env.example` ja estao preenchidos com defaults comuns quando o provider tem endpoint estavel.
 
+Para teste local com plataformas de mensageria, voce pode liberar usuarios no gateway:
+
+```env
+GATEWAY_ALLOW_ALL_USERS=true
+```
+
+Para uso real, mantenha `false` e configure allowlists como `GATEWAY_ALLOWED_USERS`, `TELEGRAM_ALLOWED_USERS` ou `DISCORD_ALLOWED_USERS`.
+
 Garanta permissao de execucao nos scripts, se necessario:
 
 ```bash
