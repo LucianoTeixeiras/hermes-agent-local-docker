@@ -37,10 +37,9 @@ O container usa `/opt/data` como fonte unica de estado, conforme a documentacao 
 - `Dockerfile`: imagem derivada minima baseada em `nousresearch/hermes-agent`.
 - `docker-compose.yml`: servico persistente com gateway, limites de recursos, logging rotacionado e bind local.
 - `.env.example`: template de variaveis para Compose.
-- `scripts/bootstrap.ps1`: cria `.env`, cria `hermes-data/` e executa o wizard de setup.
-- `scripts/start.ps1`: build e start do servico.
-- `scripts/stop.ps1`: parada limpa.
-- `scripts/logs.ps1`: acompanhamento de logs.
+- `scripts/windows/*.ps1`: operacao no Windows via PowerShell.
+- `scripts/linux/*.sh`: operacao no Linux, WSL e Ubuntu via Bash.
+- `scripts/*.ps1`: atalhos legados para os scripts Windows.
 
 ## Configuracao inicial
 
@@ -57,7 +56,16 @@ Gere uma chave para a API:
 Atualize `API_SERVER_KEY` no `.env`. Em seguida:
 
 ```powershell
-.\scripts\bootstrap.ps1
+.\scripts\windows\bootstrap.ps1
+```
+
+Linux, WSL ou Ubuntu:
+
+```bash
+cp .env.example .env
+openssl rand -hex 32
+chmod +x scripts/linux/*.sh
+./scripts/linux/bootstrap.sh
 ```
 
 O setup cria os arquivos internos em `hermes-data/`. Chaves de provedores, tokens de bots e segredos do Hermes ficam no arquivo `hermes-data/.env`, nao no `.env` do Compose.
@@ -65,7 +73,13 @@ O setup cria os arquivos internos em `hermes-data/`. Chaves de provedores, token
 ## Execucao
 
 ```powershell
-.\scripts\start.ps1
+.\scripts\windows\start.ps1
+```
+
+Linux, WSL ou Ubuntu:
+
+```bash
+./scripts/linux/start.sh
 ```
 
 Ver status:
@@ -77,13 +91,25 @@ docker compose ps
 Logs:
 
 ```powershell
-.\scripts\logs.ps1
+.\scripts\windows\logs.ps1
+```
+
+Linux, WSL ou Ubuntu:
+
+```bash
+./scripts/linux/logs.sh
 ```
 
 Parar:
 
 ```powershell
-.\scripts\stop.ps1
+.\scripts\windows\stop.ps1
+```
+
+Linux, WSL ou Ubuntu:
+
+```bash
+./scripts/linux/stop.sh
 ```
 
 ## Gateway API

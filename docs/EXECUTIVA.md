@@ -8,7 +8,7 @@ Este projeto prepara uma instalacao local do Hermes Agent em Docker. A abordagem
 
 - Ambiente Docker local para executar o Hermes Agent.
 - Persistencia de configuracoes, sessoes, memorias, skills e logs.
-- Scripts simples de inicializacao, execucao, parada e acompanhamento.
+- Scripts simples de inicializacao, execucao, parada e acompanhamento para Windows e Linux/WSL/Ubuntu.
 - Controles basicos de seguranca: API key obrigatoria, portas locais, dados fora do repositorio e limites de recursos.
 - Documentacao tecnica e executiva para compartilhamento interno.
 
@@ -16,6 +16,7 @@ Este projeto prepara uma instalacao local do Hermes Agent em Docker. A abordagem
 
 - Seguranca: o servico roda isolado e nao fica aberto na rede por padrao.
 - Reprodutibilidade: o mesmo Compose pode ser usado por outros membros da equipe.
+- Compatibilidade: operacao documentada para Windows nativo e para usuarios WSL/Linux.
 - Governanca: credenciais e dados sensiveis ficam separados do codigo.
 - Manutencao: atualizacoes da imagem podem ser feitas sem apagar configuracoes.
 - Escalabilidade operacional: o Hermes permite multiplos perfis para separar agentes, objetivos ou times.

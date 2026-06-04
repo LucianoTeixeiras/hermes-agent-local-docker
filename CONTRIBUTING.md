@@ -12,7 +12,15 @@ $env:API_SERVER_KEY='0123456789abcdef'
 docker compose config --quiet
 ```
 
-If you change scripts, test them on Windows PowerShell or PowerShell 7.
+If you change scripts, test the matching platform entrypoint:
+
+```powershell
+.\scripts\windows\start.ps1
+```
+
+```bash
+./scripts/linux/start.sh
+```
 
 ## Guidelines
 

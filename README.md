@@ -16,6 +16,13 @@ O projeto empacota a abordagem recomendada pela documentacao oficial do Hermes: 
 
 ## Inicio rapido
 
+Escolha o guia do seu ambiente:
+
+- [Windows](docs/WINDOWS.md)
+- [Linux, WSL e Ubuntu](docs/LINUX_WSL.md)
+
+### Windows
+
 1. Copie o arquivo de ambiente:
 
    ```powershell
@@ -31,25 +38,64 @@ O projeto empacota a abordagem recomendada pela documentacao oficial do Hermes: 
 3. Execute o setup inicial. Ele grava configuracoes, credenciais e sessoes em `hermes-data/`.
 
    ```powershell
-   .\scripts\bootstrap.ps1
+   .\scripts\windows\bootstrap.ps1
    ```
 
    Para usar o fluxo recomendado do Nous Portal:
 
    ```powershell
-   .\scripts\bootstrap.ps1 -Portal
+   .\scripts\windows\bootstrap.ps1 -Portal
    ```
 
 4. Suba o gateway:
 
    ```powershell
-   .\scripts\start.ps1
+   .\scripts\windows\start.ps1
    ```
 
 5. Acompanhe logs:
 
    ```powershell
-   .\scripts\logs.ps1
+   .\scripts\windows\logs.ps1
+   ```
+
+### Linux, WSL e Ubuntu
+
+1. Copie o arquivo de ambiente:
+
+   ```bash
+   cp .env.example .env
+   ```
+
+2. Gere uma chave forte e atualize `API_SERVER_KEY` no arquivo `.env`.
+
+   ```bash
+   openssl rand -hex 32
+   ```
+
+3. Execute o setup inicial:
+
+   ```bash
+   chmod +x scripts/linux/*.sh
+   ./scripts/linux/bootstrap.sh
+   ```
+
+   Para usar o fluxo recomendado do Nous Portal:
+
+   ```bash
+   ./scripts/linux/bootstrap.sh --portal
+   ```
+
+4. Suba o gateway:
+
+   ```bash
+   ./scripts/linux/start.sh
+   ```
+
+5. Acompanhe logs:
+
+   ```bash
+   ./scripts/linux/logs.sh
    ```
 
 ## Endpoints locais
@@ -71,6 +117,8 @@ Arquivos sensiveis nao devem ser versionados:
 
 - [Documentacao tecnica](docs/TECNICA.md)
 - [Documentacao executiva](docs/EXECUTIVA.md)
+- [Guia Windows](docs/WINDOWS.md)
+- [Guia Linux, WSL e Ubuntu](docs/LINUX_WSL.md)
 
 ## Licenca
 
