@@ -1,0 +1,49 @@
+services:
+  hermes:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        HERMES_IMAGE_TAG: ${HERMES_IMAGE_TAG:-latest}
+    image: hermes-agent-local:${HERMES_IMAGE_TAG:-latest}
+    container_name: hermes-agent-local
+    restart: unless-stopped
+    command: gateway run
+    init: true
+    ports:
+      - "${API_SERVER_BIND:-127.0.0.1}:${API_SERVER_PORT:-8642}:8642"
+      - "${DASHBOARD_BIND:-127.0.0.1}:${DASHBOARD_PORT:-9119}:9119"
+    volumes:
+      - ./hermes-data:/opt/data
+    environment:
+      API_SERVER_ENABLED: ${API_SERVER_ENABLED:-true}
+      API_SERVER_HOST: 0.0.0.0
+      API_SERVER_KEY: "${API_SERVER_KEY:?Set API_SERVER_KEY in .env. Generate with openssl rand -hex 32}"
+      API_SERVER_CORS_ORIGINS: ${API_SERVER_CORS_ORIGINS:-http://127.0.0.1:9119,http://localhost:9119}
+      HERMES_DASHBOARD: ${HERMES_DASHBOARD:-0}
+      HERMES_DASHBOARD_HOST: 0.0.0.0
+      HERMES_DASHBOARD_PORT: 9119
+      HERMES_DASHBOARD_OAUTH_CLIENT_ID: ${HERMES_DASHBOARD_OAUTH_CLIENT_ID:-}
+      HERMES_DASHBOARD_INSECURE: ${HERMES_DASHBOARD_INSECURE:-}
+    deploy:
+      resources:
+        limits:
+          cpus: "${HERMES_CPUS:-2.0}"
+          memory: ${HERMES_MEMORY:-4G}
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - python -c "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8642/health', timeout=3)"
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 60s
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: "5"
+
+networks:
+  default:
+    name: hermes-local
