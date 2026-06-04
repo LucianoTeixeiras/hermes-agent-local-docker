@@ -109,6 +109,14 @@ Na tela:
 Settings -> Gateway -> Remote gateway
 ```
 
+Primeiro selecione o card:
+
+```text
+Remote gateway
+```
+
+Se o card `Local gateway` continuar selecionado, o botao `Test remote` pode permanecer desabilitado mesmo com a URL preenchida.
+
 Preencha:
 
 ```text
@@ -156,7 +164,37 @@ HERMES_DASHBOARD_BASIC_AUTH_SECRET=
 
 Depois reinicie o container.
 
-## 6. Seguranca
+## 6. Se o botao Test remote nao habilitar
+
+Verifique:
+
+1. O card `Remote gateway` esta selecionado.
+2. A URL esta sem barra final:
+
+   ```text
+   http://localhost:9119
+   ```
+
+3. Se `localhost` nao funcionar no Windows, tente:
+
+   ```text
+   http://127.0.0.1:9119
+   ```
+
+4. O backend esta acessivel:
+
+   ```bash
+   curl -s http://localhost:9119/api/status | python3 -m json.tool
+   ```
+
+5. Se alterou `.env`, reiniciou o container:
+
+   ```bash
+   ./scripts/linux/stop.sh --volume
+   ./scripts/linux/start.sh --volume
+   ```
+
+## 7. Seguranca
 
 - Nao exponha `9119` na internet.
 - Mantenha `DASHBOARD_BIND=127.0.0.1` para uso local.

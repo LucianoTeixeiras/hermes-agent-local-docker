@@ -296,3 +296,31 @@ PY
 ```
 
 O resultado deve indicar `auth_required=true` e incluir `"basic"` em `auth_providers`.
+
+## Hermes Desktop nao habilita `Test remote`
+
+Sintoma:
+
+O campo `Remote URL` esta preenchido, mas o botao `Test remote` continua desabilitado.
+
+Causa comum:
+
+O card `Local gateway` ainda esta selecionado. O Hermes Desktop so habilita o teste remoto quando `Remote gateway` esta selecionado.
+
+Solucao:
+
+1. Selecione o card `Remote gateway`.
+2. Use uma destas URLs:
+
+   ```text
+   http://localhost:9119
+   ```
+
+   ou:
+
+   ```text
+   http://127.0.0.1:9119
+   ```
+
+3. Deixe `Session token` em branco quando Basic Auth estiver configurado.
+4. Clique em `Test remote`.
