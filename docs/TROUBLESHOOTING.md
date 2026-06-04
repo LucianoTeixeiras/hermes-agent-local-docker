@@ -19,6 +19,8 @@ Solucao recomendada no WSL:
 ./scripts/linux/start.sh --volume
 ```
 
+Se o projeto estiver em `/mnt/c/...`, os scripts Linux atuais escolhem `volume` automaticamente. O parametro `--volume` continua disponivel para deixar a intencao explicita.
+
 Com Nous Portal:
 
 ```bash

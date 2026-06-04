@@ -71,7 +71,7 @@ s6-log: fatal: unable to fd_chmod /opt/data/logs/gateways/default/current: Opera
 
 O problema normalmente nao e o Hermes em si. E o bind mount vindo do filesystem Windows/OneDrive/NTFS, que nao suporta todas as operacoes de permissao esperadas pelo logger dentro do container.
 
-Use o modo com volume gerenciado pelo Docker:
+Os scripts Linux detectam automaticamente WSL rodando em `/mnt/c/...` e usam volume gerenciado pelo Docker. Se quiser deixar explicito, use:
 
 ```bash
 ./scripts/linux/bootstrap.sh --volume
@@ -90,6 +90,13 @@ Depois suba o gateway com o mesmo modo:
 ```
 
 Nesse modo, os dados ficam no volume Docker `hermes-agent-data`, nao na pasta local `hermes-data/`.
+
+Tambem e possivel fixar esse comportamento no `.env`:
+
+```env
+HERMES_DATA_MODE=volume
+HERMES_DATA_VOLUME=hermes-agent-data
+```
 
 Opcionalmente, use o exemplo de configuracao:
 
@@ -155,6 +162,8 @@ Para melhor performance, prefira manter o clone dentro do filesystem Linux do WS
 ```
 
 Evite operar volumes Docker pesados dentro de `/mnt/c/...` quando houver muitos arquivos, pois o desempenho de I/O pode ser pior.
+
+Se precisar manter o projeto em `/mnt/c`, OneDrive ou outro caminho do Windows, use o modo `volume`, que evita mensagens de permissao durante o setup interativo.
 
 ## Observacoes
 

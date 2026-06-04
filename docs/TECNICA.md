@@ -76,6 +76,8 @@ Em WSL sobre `/mnt/c`, OneDrive ou filesystem Windows, prefira volume gerenciado
 ./scripts/linux/start.sh --volume
 ```
 
+Os scripts Linux detectam automaticamente WSL em `/mnt/c/...` e usam `volume`, a menos que `--bind` ou `HERMES_DATA_MODE=bind` seja informado explicitamente.
+
 O setup cria os arquivos internos em `hermes-data/`. Pela documentacao oficial, chaves de provedores, tokens de bots e segredos do Hermes pertencem ao arquivo `hermes-data/.env`.
 
 Este projeto tambem aceita chaves de providers no `.env` da raiz para facilitar Docker Compose. O Compose carrega esse arquivo com `env_file`, entao variaveis como `OPENROUTER_API_KEY`, `ANTHROPIC_API_KEY`, `GOOGLE_API_KEY` ou `OPENAI_BASE_URL` ficam disponiveis dentro do container. Para ambientes persistentes, prefira registrar esses valores pelo setup do Hermes ou por `hermes config set`, que salva segredos no local nativo do Hermes.
