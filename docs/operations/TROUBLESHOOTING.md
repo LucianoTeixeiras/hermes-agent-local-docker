@@ -255,3 +255,39 @@ WHATSAPP_ALLOWED_USERS=
 SIGNAL_ALLOWED_USERS=
 MATRIX_ALLOWED_USERS=
 ```
+
+## Hermes Desktop pede `Session token`
+
+Sintoma:
+
+Na tela `Settings -> Gateway -> Remote gateway`, o Hermes Desktop mostra o campo `Session token` e nao oferece `Sign in`.
+
+Causa:
+
+O provider de Basic Auth do dashboard nao esta ativo no backend Docker.
+
+Solucao:
+
+Configure no `.env`:
+
+```env
+HERMES_DASHBOARD=1
+HERMES_DASHBOARD_BASIC_AUTH_USERNAME=admin
+HERMES_DASHBOARD_BASIC_AUTH_PASSWORD=escolha-uma-senha-forte
+HERMES_DASHBOARD_BASIC_AUTH_SECRET=gere-com-openssl-rand-base64-32
+```
+
+Reinicie:
+
+```bash
+./scripts/linux/stop.sh --volume
+./scripts/linux/start.sh --volume
+```
+
+Teste:
+
+```bash
+curl -s http://localhost:9119/api/status | jq '.auth_required, .auth_providers'
+```
+
+O resultado deve indicar `auth_required=true` e incluir `"basic"` em `auth_providers`.

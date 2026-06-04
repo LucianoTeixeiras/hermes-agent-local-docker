@@ -16,6 +16,7 @@ Esta pasta esta organizada por contexto para facilitar leitura por diferentes pu
 ## Integrations
 
 - [Telegram](integrations/TELEGRAM.md): configuracao do Hermes como bot do Telegram.
+- [Hermes Desktop](integrations/DESKTOP.md): conectar o app desktop ao backend Docker.
 
 ## Technical
 
