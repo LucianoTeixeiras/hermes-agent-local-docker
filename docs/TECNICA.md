@@ -162,6 +162,8 @@ GOOGLE_CHAT_ALLOWED_USERS=
 
 Em producao, mantenha `GATEWAY_ALLOW_ALL_USERS=false`.
 
+Para configurar o Hermes como bot do Telegram, use o [Guia Telegram](TELEGRAM.md). O fluxo recomendado e criar o bot com `@BotFather`, preencher `TELEGRAM_BOT_TOKEN` e `TELEGRAM_ALLOWED_USERS` no `.env`, e reiniciar o gateway.
+
 ## Dashboard
 
 O dashboard fica desabilitado por padrao:

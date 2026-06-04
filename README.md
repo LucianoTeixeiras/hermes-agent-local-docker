@@ -123,6 +123,7 @@ O `.env.example` inclui variaveis opcionais para providers de modelos. Preencha 
 - [Documentacao executiva](docs/EXECUTIVA.md)
 - [Guia Windows](docs/WINDOWS.md)
 - [Guia Linux, WSL e Ubuntu](docs/LINUX_WSL.md)
+- [Guia Telegram](docs/TELEGRAM.md)
 - [Troubleshooting](docs/TROUBLESHOOTING.md)
 
 ## Exemplos
