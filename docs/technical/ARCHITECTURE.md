@@ -132,6 +132,8 @@ Linux, WSL ou Ubuntu:
 ./scripts/linux/stop.sh
 ```
 
+Para validar a primeira chamada via API local, veja [Primeiro contato via Docker](../operations/FIRST_CONTACT.md).
+
 ## Gateway API
 
 O Compose habilita a API com:
