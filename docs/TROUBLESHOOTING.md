@@ -146,3 +146,35 @@ O arquivo `docker-compose.volume.yml` declara `hermes-agent-data` como volume ex
 ```bash
 git pull
 ```
+
+## `s6-overlay-suexec: fatal: can only run as pid 1`
+
+Sintoma:
+
+```text
+s6-overlay-suexec: fatal: can only run as pid 1
+```
+
+Causa:
+
+A imagem oficial do Hermes usa `s6-overlay` como sistema de inicializacao interno. Esse init precisa rodar como PID 1 dentro do container. Se o Compose adicionar outro init antes dele, por exemplo com `init: true`, o `s6-overlay` deixa de ser PID 1 e falha.
+
+Solucao:
+
+Atualize o repositorio e recrie o container:
+
+```bash
+git pull
+./scripts/linux/stop.sh --volume
+docker rm -f hermes-agent-local
+./scripts/linux/start.sh --volume
+```
+
+No Windows PowerShell:
+
+```powershell
+git pull
+.\scripts\windows\stop.ps1
+docker rm -f hermes-agent-local
+.\scripts\windows\start.ps1
+```

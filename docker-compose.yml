@@ -9,7 +9,6 @@ services:
     container_name: hermes-agent-local
     restart: unless-stopped
     command: gateway run
-    init: true
     env_file:
       - path: .env
         required: false
