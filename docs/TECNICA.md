@@ -170,18 +170,24 @@ Exemplos de variaveis de provider aceitas:
 
 ```env
 OPENROUTER_API_KEY=
+OPENROUTER_BASE_URL=https://openrouter.ai/api/v1
 ANTHROPIC_API_KEY=
 GOOGLE_API_KEY=
 GEMINI_API_KEY=
 OPENAI_API_KEY=
-OPENAI_BASE_URL=
+OPENAI_BASE_URL=https://api.openai.com/v1
 DEEPSEEK_API_KEY=
+DEEPSEEK_BASE_URL=https://api.deepseek.com
 XAI_API_KEY=
+XAI_BASE_URL=https://api.x.ai/v1
 HF_TOKEN=
+HF_BASE_URL=https://router.huggingface.co/v1
 AWS_REGION=
 AWS_PROFILE=
 AZURE_FOUNDRY_API_KEY=
 ```
+
+O `.env.example` ja preenche os `*_BASE_URL` com valores padrao quando a documentacao do Hermes ou do provider publica um endpoint estavel. Altere esses valores apenas quando usar proxy corporativo, gateway local, regioes especificas, self-hosting ou endpoints compativeis como LiteLLM, VLLM, SGLang, LM Studio, LocalAI ou Open WebUI.
 
 ## Exemplo de config.yaml
 

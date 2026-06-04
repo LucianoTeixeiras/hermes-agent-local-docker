@@ -113,7 +113,7 @@ Arquivos sensiveis nao devem ser versionados:
 - `hermes-data/`
 - backups de `hermes-data/`
 
-O `.env.example` inclui variaveis opcionais para providers de modelos. Preencha somente as que usar, por exemplo `OPENROUTER_API_KEY`, `ANTHROPIC_API_KEY`, `GOOGLE_API_KEY`, `OPENAI_API_KEY` ou `OPENAI_BASE_URL`.
+O `.env.example` inclui variaveis opcionais para providers de modelos. Preencha somente as chaves que usar, por exemplo `OPENROUTER_API_KEY`, `ANTHROPIC_API_KEY`, `GOOGLE_API_KEY` ou `OPENAI_API_KEY`. Os campos `*_BASE_URL` ja trazem defaults comuns quando ha endpoint estavel documentado.
 
 ## Documentacao
 

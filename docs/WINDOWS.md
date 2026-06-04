@@ -30,10 +30,11 @@ OPENROUTER_API_KEY=
 ANTHROPIC_API_KEY=
 GOOGLE_API_KEY=
 OPENAI_API_KEY=
-OPENAI_BASE_URL=
+OPENAI_BASE_URL=https://api.openai.com/v1
 ```
 
 Para configuracao permanente pelo proprio Hermes, use o setup interativo ou `hermes config set`, que grava segredos em `hermes-data/.env`.
+Os campos `*_BASE_URL` do `.env.example` ja estao preenchidos com defaults comuns quando o provider tem endpoint estavel.
 
 Execute o setup do Hermes:
 
