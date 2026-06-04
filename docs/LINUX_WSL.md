@@ -61,10 +61,49 @@ Com Nous Portal:
 ./scripts/linux/bootstrap.sh --portal
 ```
 
+### WSL em `/mnt/c`, OneDrive ou filesystem Windows
+
+Se aparecer uma mensagem parecida com esta durante o setup:
+
+```text
+s6-log: fatal: unable to fd_chmod /opt/data/logs/gateways/default/current: Operation not permitted
+```
+
+O problema normalmente nao e o Hermes em si. E o bind mount vindo do filesystem Windows/OneDrive/NTFS, que nao suporta todas as operacoes de permissao esperadas pelo logger dentro do container.
+
+Use o modo com volume gerenciado pelo Docker:
+
+```bash
+./scripts/linux/bootstrap.sh --volume
+```
+
+Com Nous Portal:
+
+```bash
+./scripts/linux/bootstrap.sh --portal --volume
+```
+
+Depois suba o gateway com o mesmo modo:
+
+```bash
+./scripts/linux/start.sh --volume
+```
+
+Nesse modo, os dados ficam no volume Docker `hermes-agent-data`, nao na pasta local `hermes-data/`.
+
 Opcionalmente, use o exemplo de configuracao:
 
 ```bash
 cp examples/config.yaml.example hermes-data/config.yaml
+```
+
+No modo `--volume`, copie o exemplo para dentro do volume Docker:
+
+```bash
+docker run --rm \
+  -v hermes-agent-data:/opt/data \
+  -v "$PWD/examples:/examples:ro" \
+  alpine cp /examples/config.yaml.example /opt/data/config.yaml
 ```
 
 Depois ajuste `provider`, `default`, aliases e modelos auxiliares conforme seus providers.
@@ -77,16 +116,34 @@ Subir:
 ./scripts/linux/start.sh
 ```
 
+Quando usar volume gerenciado pelo Docker:
+
+```bash
+./scripts/linux/start.sh --volume
+```
+
 Logs:
 
 ```bash
 ./scripts/linux/logs.sh
 ```
 
+Quando usar volume gerenciado pelo Docker:
+
+```bash
+./scripts/linux/logs.sh --volume
+```
+
 Parar:
 
 ```bash
 ./scripts/linux/stop.sh
+```
+
+Quando usar volume gerenciado pelo Docker:
+
+```bash
+./scripts/linux/stop.sh --volume
 ```
 
 ## WSL: recomendacao de local do projeto
@@ -102,5 +159,6 @@ Evite operar volumes Docker pesados dentro de `/mnt/c/...` quando houver muitos 
 ## Observacoes
 
 - O volume persistente fica em `hermes-data/`.
+- No modo `--volume`, o volume persistente fica em `hermes-agent-data`.
 - As portas sao publicadas apenas em `127.0.0.1` por padrao.
 - No WSL, `http://127.0.0.1:8642` normalmente fica acessivel tambem pelo navegador do Windows.

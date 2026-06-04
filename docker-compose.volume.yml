@@ -1,0 +1,8 @@
+services:
+  hermes:
+    volumes:
+      - hermes-agent-data:/opt/data
+
+volumes:
+  hermes-agent-data:
+    name: hermes-agent-data

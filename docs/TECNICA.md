@@ -36,6 +36,7 @@ O container usa `/opt/data` como fonte unica de estado, conforme a documentacao 
 
 - `Dockerfile`: imagem derivada minima baseada em `nousresearch/hermes-agent`.
 - `docker-compose.yml`: servico persistente com gateway, limites de recursos, logging rotacionado e bind local.
+- `docker-compose.volume.yml`: override opcional para usar volume Docker gerenciado em vez de bind mount local.
 - `.env.example`: template de variaveis para Compose e chaves opcionais de providers.
 - `scripts/windows/*.ps1`: operacao no Windows via PowerShell.
 - `scripts/linux/*.sh`: operacao no Linux, WSL e Ubuntu via Bash.
@@ -66,6 +67,13 @@ cp .env.example .env
 openssl rand -hex 32
 chmod +x scripts/linux/*.sh
 ./scripts/linux/bootstrap.sh
+```
+
+Em WSL sobre `/mnt/c`, OneDrive ou filesystem Windows, prefira volume gerenciado pelo Docker:
+
+```bash
+./scripts/linux/bootstrap.sh --volume
+./scripts/linux/start.sh --volume
 ```
 
 O setup cria os arquivos internos em `hermes-data/`. Pela documentacao oficial, chaves de provedores, tokens de bots e segredos do Hermes pertencem ao arquivo `hermes-data/.env`.
