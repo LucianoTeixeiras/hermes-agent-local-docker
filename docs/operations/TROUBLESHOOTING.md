@@ -287,7 +287,12 @@ Reinicie:
 Teste:
 
 ```bash
-curl -s http://localhost:9119/api/status | jq '.auth_required, .auth_providers'
+python3 - <<'PY'
+import json, urllib.request
+data = json.load(urllib.request.urlopen("http://localhost:9119/api/status"))
+print("auth_required:", data.get("auth_required"))
+print("auth_providers:", data.get("auth_providers"))
+PY
 ```
 
 O resultado deve indicar `auth_required=true` e incluir `"basic"` em `auth_providers`.

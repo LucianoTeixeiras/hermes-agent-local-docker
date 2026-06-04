@@ -67,7 +67,24 @@ WSL/Linux:
 curl -s http://localhost:9119/api/status
 ```
 
-Se tiver `jq`:
+Para ver apenas os campos de autenticacao sem instalar `jq`:
+
+```bash
+curl -s http://localhost:9119/api/status | python3 -m json.tool
+```
+
+Ou:
+
+```bash
+python3 - <<'PY'
+import json, urllib.request
+data = json.load(urllib.request.urlopen("http://localhost:9119/api/status"))
+print("auth_required:", data.get("auth_required"))
+print("auth_providers:", data.get("auth_providers"))
+PY
+```
+
+Se tiver `jq`, tambem pode usar:
 
 ```bash
 curl -s http://localhost:9119/api/status | jq '.auth_required, .auth_providers'
@@ -121,6 +138,12 @@ Verifique:
 
 ```bash
 curl -s http://localhost:9119/api/status
+```
+
+Sem `jq`, use:
+
+```bash
+curl -s http://localhost:9119/api/status | python3 -m json.tool
 ```
 
 Confirme no `.env`:
