@@ -196,36 +196,42 @@ Verifique:
 
 6. Feche e abra o Hermes Desktop novamente. Algumas builds mantem estado de formulario em memoria ate reiniciar a janela.
 
-## 7. Fallback: configurar Remote URL por variavel de ambiente
+## 7. Se o Desktop falhar ao abrir por variavel de ambiente
 
-A documentacao oficial tambem permite definir o backend remoto via variavel `HERMES_DESKTOP_REMOTE_URL` antes de abrir o Hermes Desktop.
-
-Windows PowerShell, para a sessao atual:
-
-```powershell
-$env:HERMES_DESKTOP_REMOTE_URL="http://127.0.0.1:9119"
-```
-
-Para persistir no usuario Windows:
-
-```powershell
-setx HERMES_DESKTOP_REMOTE_URL "http://127.0.0.1:9119"
-```
-
-Depois feche e abra o Hermes Desktop.
-
-Se o Desktop detectar Basic Auth, ele deve pedir login com:
+Algumas builds do Hermes Desktop falham ao iniciar quando `HERMES_DESKTOP_REMOTE_URL` esta definida sem `HERMES_DESKTOP_REMOTE_TOKEN`:
 
 ```text
-Username: admin
-Password: valor de HERMES_DASHBOARD_BASIC_AUTH_PASSWORD
+HERMES_DESKTOP_REMOTE_URL is set but HERMES_DESKTOP_REMOTE_TOKEN is not.
+Both must be provided to connect to a remote Hermes backend.
 ```
 
-Para remover o override persistente depois:
+Nesse caso, remova as variaveis e configure a conexao pela UI, usando Basic Auth.
+
+Windows PowerShell:
 
 ```powershell
-Remove-ItemProperty -Path "HKCU:\Environment" -Name HERMES_DESKTOP_REMOTE_URL
+Remove-ItemProperty -Path "HKCU:\Environment" -Name HERMES_DESKTOP_REMOTE_URL -ErrorAction SilentlyContinue
+Remove-ItemProperty -Path "HKCU:\Environment" -Name HERMES_DESKTOP_REMOTE_TOKEN -ErrorAction SilentlyContinue
 ```
+
+Limpe tambem a sessao atual do PowerShell, se estiver abrindo o Desktop por ela:
+
+```powershell
+Remove-Item Env:\HERMES_DESKTOP_REMOTE_URL -ErrorAction SilentlyContinue
+Remove-Item Env:\HERMES_DESKTOP_REMOTE_TOKEN -ErrorAction SilentlyContinue
+```
+
+Depois feche completamente o Hermes Desktop e abra novamente.
+
+Na UI:
+
+```text
+Settings -> Gateway -> Remote gateway
+Remote URL: http://127.0.0.1:9119
+Session token: deixe em branco
+```
+
+O login deve usar `HERMES_DASHBOARD_BASIC_AUTH_USERNAME` e `HERMES_DASHBOARD_BASIC_AUTH_PASSWORD`.
 
 ## 8. Seguranca
 

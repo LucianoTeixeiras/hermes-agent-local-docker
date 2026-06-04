@@ -325,14 +325,44 @@ Solucao:
 3. Deixe `Session token` em branco quando Basic Auth estiver configurado.
 4. Clique em `Test remote`.
 
-Se a UI continuar travada, configure a URL remota por variavel de ambiente e reabra o Hermes Desktop:
+Se voce configurou a URL remota por variavel de ambiente e o Desktop falhou ao abrir, remova as variaveis:
 
 ```powershell
-setx HERMES_DESKTOP_REMOTE_URL "http://127.0.0.1:9119"
+Remove-ItemProperty -Path "HKCU:\Environment" -Name HERMES_DESKTOP_REMOTE_URL -ErrorAction SilentlyContinue
+Remove-ItemProperty -Path "HKCU:\Environment" -Name HERMES_DESKTOP_REMOTE_TOKEN -ErrorAction SilentlyContinue
 ```
 
-Para remover o override depois:
+Limpe tambem a sessao atual:
 
 ```powershell
-Remove-ItemProperty -Path "HKCU:\Environment" -Name HERMES_DESKTOP_REMOTE_URL
+Remove-Item Env:\HERMES_DESKTOP_REMOTE_URL -ErrorAction SilentlyContinue
+Remove-Item Env:\HERMES_DESKTOP_REMOTE_TOKEN -ErrorAction SilentlyContinue
 ```
+
+Depois feche e abra o Hermes Desktop e configure pela UI com Basic Auth.
+
+## `HERMES_DESKTOP_REMOTE_URL is set but HERMES_DESKTOP_REMOTE_TOKEN is not`
+
+Sintoma:
+
+```text
+HERMES_DESKTOP_REMOTE_URL is set but HERMES_DESKTOP_REMOTE_TOKEN is not.
+Both must be provided to connect to a remote Hermes backend.
+```
+
+Causa:
+
+Algumas builds do Hermes Desktop exigem que a URL remota via ambiente venha acompanhada de um session token. Esse token nao e a `API_SERVER_KEY` nem a senha do Basic Auth.
+
+Solucao recomendada:
+
+Remova as variaveis de ambiente e use a tela `Settings -> Gateway -> Remote gateway` com Basic Auth:
+
+```powershell
+Remove-ItemProperty -Path "HKCU:\Environment" -Name HERMES_DESKTOP_REMOTE_URL -ErrorAction SilentlyContinue
+Remove-ItemProperty -Path "HKCU:\Environment" -Name HERMES_DESKTOP_REMOTE_TOKEN -ErrorAction SilentlyContinue
+Remove-Item Env:\HERMES_DESKTOP_REMOTE_URL -ErrorAction SilentlyContinue
+Remove-Item Env:\HERMES_DESKTOP_REMOTE_TOKEN -ErrorAction SilentlyContinue
+```
+
+Feche o Hermes Desktop completamente e abra novamente.
