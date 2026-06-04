@@ -6,3 +6,4 @@ services:
 volumes:
   hermes-agent-data:
     name: hermes-agent-data
+    external: true

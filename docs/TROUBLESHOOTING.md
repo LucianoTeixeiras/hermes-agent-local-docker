@@ -73,3 +73,76 @@ docker run --rm \
   -v "$PWD/examples:/examples:ro" \
   alpine cp /examples/config.yaml.example /opt/data/config.yaml
 ```
+
+## `Bind for 0.0.0.0:8642 failed: port is already allocated`
+
+Sintoma:
+
+```text
+Bind for 0.0.0.0:8642 failed: port is already allocated
+```
+
+Causa:
+
+A porta local `8642` ja esta em uso. Normalmente e um container Hermes anterior, outro Compose, ou algum processo local escutando na mesma porta.
+
+No WSL/Linux, descubra quem usa a porta:
+
+```bash
+docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
+ss -ltnp | grep ':8642'
+```
+
+Se for um container antigo do Hermes, pare/remova:
+
+```bash
+docker compose down
+docker rm -f hermes-agent-local
+```
+
+Se estiver usando o modo volume:
+
+```bash
+./scripts/linux/stop.sh --volume
+docker rm -f hermes-agent-local
+```
+
+Depois suba novamente:
+
+```bash
+./scripts/linux/start.sh --volume
+```
+
+Alternativa: trocar a porta publicada no `.env`:
+
+```env
+API_SERVER_PORT=8643
+```
+
+E subir novamente:
+
+```bash
+./scripts/linux/start.sh --volume
+```
+
+Nesse caso, use `http://127.0.0.1:8643` para acessar a API.
+
+## Warning: volume already exists but was not created by Docker Compose
+
+Sintoma:
+
+```text
+volume "hermes-agent-data" already exists but was not created by Docker Compose
+```
+
+Causa:
+
+O volume foi criado pelo script de bootstrap com `docker volume create`, antes do Compose assumir a stack.
+
+Solucao:
+
+O arquivo `docker-compose.volume.yml` declara `hermes-agent-data` como volume externo. Se seu clone ainda mostra esse aviso, atualize o repositorio:
+
+```bash
+git pull
+```

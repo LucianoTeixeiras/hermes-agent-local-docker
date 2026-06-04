@@ -30,6 +30,7 @@ DATA_VOLUME="$(hermes_data_volume_name "${ENV_PATH}")"
 hermes_print_data_mode_notice "${DATA_MODE}" "${ROOT}" "${DATA_VOLUME}"
 
 if [[ "${DATA_MODE}" == "volume" ]]; then
+  docker volume create "${DATA_VOLUME}" >/dev/null
   docker compose -f docker-compose.yml -f docker-compose.volume.yml up -d --build
   docker compose -f docker-compose.yml -f docker-compose.volume.yml ps
 else

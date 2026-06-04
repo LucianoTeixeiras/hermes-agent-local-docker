@@ -135,6 +135,14 @@ Quando usar volume gerenciado pelo Docker:
 ./scripts/linux/start.sh --volume
 ```
 
+Se a porta `8642` ja estiver em uso, altere `API_SERVER_PORT` no `.env`, por exemplo:
+
+```env
+API_SERVER_PORT=8643
+```
+
+Depois suba novamente com o mesmo modo de volume.
+
 Logs:
 
 ```bash
