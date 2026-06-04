@@ -9,6 +9,14 @@
 
 ## Setup inicial
 
+Use uma pasta local fora de sincronizacao para executar o Docker. Exemplo recomendado no Windows:
+
+```powershell
+D:\00-agents2ai-agents\hermes-agent-local-docker
+```
+
+O OneDrive pode continuar sendo usado como espelho, backup ou area de trabalho do repositorio, mas nao e o melhor local para executar containers com volume persistente.
+
 Copie o template de ambiente:
 
 ```powershell
@@ -81,3 +89,4 @@ Parar:
 - Os scripts na raiz de `scripts/` continuam funcionando como atalhos Windows.
 - O volume persistente fica em `hermes-data/`.
 - As portas sao publicadas apenas em `127.0.0.1` por padrao.
+- Se os scripts detectarem execucao dentro de OneDrive, eles exibem apenas um aviso; a execucao nao e bloqueada.

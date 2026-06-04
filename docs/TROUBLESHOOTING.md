@@ -10,7 +10,7 @@ s6-log: fatal: unable to fd_chmod /opt/data/logs/gateways/default/current: Opera
 
 Causa comum:
 
-O Hermes esta escrevendo logs em `/opt/data`, mas `/opt/data` foi montado a partir de uma pasta do Windows, OneDrive ou `/mnt/c` no WSL. Esse tipo de bind mount pode nao suportar todas as operacoes de permissao usadas pelo `s6-log`.
+O Hermes esta escrevendo logs em `/opt/data`, mas `/opt/data` foi montado a partir de filesystem Windows/NTFS, pasta sincronizada ou `/mnt/<drive>` no WSL. Esse tipo de bind mount pode nao suportar todas as operacoes de permissao usadas pelo `s6-log`.
 
 Solucao recomendada no WSL:
 
@@ -19,7 +19,7 @@ Solucao recomendada no WSL:
 ./scripts/linux/start.sh --volume
 ```
 
-Se o projeto estiver em `/mnt/c/...`, os scripts Linux atuais escolhem `volume` automaticamente. O parametro `--volume` continua disponivel para deixar a intencao explicita.
+Se o projeto estiver em `/mnt/c/...`, `/mnt/d/...` ou outro drive montado no WSL, os scripts Linux atuais escolhem `volume` automaticamente. O parametro `--volume` continua disponivel para deixar a intencao explicita.
 
 Com Nous Portal:
 

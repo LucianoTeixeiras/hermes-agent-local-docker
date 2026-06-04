@@ -16,6 +16,12 @@ docker compose version
 
 ## Setup inicial
 
+Defina antes onde o projeto sera executado:
+
+- Windows nativo com Docker Desktop: prefira uma pasta local como `D:\00-agents2ai-agents\hermes-agent-local-docker`.
+- WSL/Linux: prefira o filesystem Linux, por exemplo `~/projects/hermes-agent-local-docker`.
+- OneDrive: recomendado apenas como espelho, backup ou copia do repositorio, nao como local de execucao do Docker.
+
 Copie o template de ambiente:
 
 ```bash
@@ -69,9 +75,9 @@ Se aparecer uma mensagem parecida com esta durante o setup:
 s6-log: fatal: unable to fd_chmod /opt/data/logs/gateways/default/current: Operation not permitted
 ```
 
-O problema normalmente nao e o Hermes em si. E o bind mount vindo do filesystem Windows/OneDrive/NTFS, que nao suporta todas as operacoes de permissao esperadas pelo logger dentro do container.
+O problema normalmente nao e o Hermes em si. E o bind mount vindo de filesystem Windows/NTFS, pasta sincronizada ou caminho `/mnt/<drive>` no WSL, que pode nao suportar todas as operacoes de permissao esperadas pelo logger dentro do container.
 
-Os scripts Linux detectam automaticamente WSL rodando em `/mnt/c/...` e usam volume gerenciado pelo Docker. Se quiser deixar explicito, use:
+Os scripts Linux detectam automaticamente WSL rodando em `/mnt/<drive>/...` e usam volume gerenciado pelo Docker. Se quiser deixar explicito, use:
 
 ```bash
 ./scripts/linux/bootstrap.sh --volume
@@ -161,9 +167,9 @@ Para melhor performance, prefira manter o clone dentro do filesystem Linux do WS
 ~/projects/hermes-agent-local-docker
 ```
 
-Evite operar volumes Docker pesados dentro de `/mnt/c/...` quando houver muitos arquivos, pois o desempenho de I/O pode ser pior.
+Evite operar volumes Docker pesados dentro de `/mnt/c/...`, `/mnt/d/...` ou outro caminho montado do Windows quando houver muitos arquivos, pois o desempenho de I/O pode ser pior.
 
-Se precisar manter o projeto em `/mnt/c`, OneDrive ou outro caminho do Windows, use o modo `volume`, que evita mensagens de permissao durante o setup interativo.
+Se precisar manter o projeto em `/mnt/<drive>` ou outro caminho do Windows, use o modo `volume`, que evita mensagens de permissao durante o setup interativo.
 
 ## Observacoes
 

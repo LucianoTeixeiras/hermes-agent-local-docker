@@ -32,6 +32,14 @@ Host Windows
 
 O container usa `/opt/data` como fonte unica de estado, conforme a documentacao oficial. A imagem pode ser recriada ou atualizada sem perder dados, desde que `hermes-data/` seja preservado.
 
+## Locais de trabalho recomendados
+
+- Espelho/backup do repositorio: OneDrive ou outra ferramenta de sincronizacao.
+- Execucao Docker no Windows: pasta local fora de sincronizacao, por exemplo `D:\00-agents2ai-agents\hermes-agent-local-docker`.
+- Execucao Docker em WSL/Linux: filesystem Linux, por exemplo `~/projects/hermes-agent-local-docker`.
+
+Evite usar a mesma pasta sincronizada para runtime Docker persistente. Isso reduz risco de conflito de permissao, lock de arquivo, lentidao de I/O e sincronizacao de dados sensiveis.
+
 ## Artefatos
 
 - `Dockerfile`: imagem derivada minima baseada em `nousresearch/hermes-agent`.
@@ -69,14 +77,14 @@ chmod +x scripts/linux/*.sh
 ./scripts/linux/bootstrap.sh
 ```
 
-Em WSL sobre `/mnt/c`, OneDrive ou filesystem Windows, prefira volume gerenciado pelo Docker:
+Em WSL sobre `/mnt/<drive>` ou filesystem Windows, prefira volume gerenciado pelo Docker:
 
 ```bash
 ./scripts/linux/bootstrap.sh --volume
 ./scripts/linux/start.sh --volume
 ```
 
-Os scripts Linux detectam automaticamente WSL em `/mnt/c/...` e usam `volume`, a menos que `--bind` ou `HERMES_DATA_MODE=bind` seja informado explicitamente.
+Os scripts Linux detectam automaticamente WSL em `/mnt/<drive>/...` e usam `volume`, a menos que `--bind` ou `HERMES_DATA_MODE=bind` seja informado explicitamente.
 
 O setup cria os arquivos internos em `hermes-data/`. Pela documentacao oficial, chaves de provedores, tokens de bots e segredos do Hermes pertencem ao arquivo `hermes-data/.env`.
 

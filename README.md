@@ -21,6 +21,8 @@ Escolha o guia do seu ambiente:
 - [Windows](docs/WINDOWS.md)
 - [Linux, WSL e Ubuntu](docs/LINUX_WSL.md)
 
+Use uma pasta local para execucao Docker, por exemplo `D:\00-agents2ai-agents\hermes-agent-local-docker` no Windows ou `~/projects/hermes-agent-local-docker` no WSL/Linux. O OneDrive e mais adequado como espelho/backup do codigo do que como local de runtime do container.
+
 ### Windows
 
 1. Copie o arquivo de ambiente:
